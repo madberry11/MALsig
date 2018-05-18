@@ -7,12 +7,12 @@
 *	it under the terms of the GNU General Public License as published by
 *	the Free Software Foundation, either version 3 of the License, or
 *	(at your option) any later version.
-*	
+*
 *	This program is distributed in the hope that it will be useful,
 *	but WITHOUT ANY WARRANTY; without even the implied warranty of
 *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 *	GNU General Public License for more details.
-*	
+*
 *	You should have received a copy of the GNU General Public License
 *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *************************************************************************/
@@ -54,7 +54,7 @@ $buffer = strtr($buffer, array("\n" => '', "\r" => '', "\t" => '', '&lt;' => '<'
 
 // these lines just extract the anime title and status information into $titles[] and $status[] arrays, plus other info
 preg_match_all("/<item><title>([^<]*) - ([^<]*?)<\/title>/i", $buffer, $titlematches);
-preg_match_all("/<description><\!\[CDATA\[([^\]]*) - ([\d?]+) of ([\d?]+) ([^\]]*)\]\]><\/description>/", $buffer, $statusmatches);
+preg_match_all("/<description><![CDATA[([^]]*) - ([d?]+) of ([d?]+) ([^]]*)]]></description>/", $buffer, $statusmatches);
 preg_match_all("/<pubDate>([^<]*)<\/pubDate>/i", $buffer, $timematches);
 preg_match_all("@<link>https?://(?:www\.)?myanimelist\.net/(anime|manga)/(\d+)/[^<]*</link>@i", $buffer, $linkmatches);
 $titles = $titlematches[1]; // $titles is now an array of titles
@@ -77,11 +77,11 @@ for($i = 0; $i < count($titles); $i++) {
 	// FORMAT THE TITLE VALUES
 	// limit the titles to 45 characters; adjust this to your needs
 	$titles[$i] = textlimit($titles[$i],45);
-	
+
 	// FORMAT THE TIME VALUES
 	// Default is something like 'Mon 12:00pm' - see http://php.net/manual/en/function.date.php
 	$times[$i] = date('D h:ia',$timestamps[$i]);
-	
+
 	// FORMAT THE UNITS (episodes/chapters/volumes)
 	$units[$i] = strtr( $units[$i], array(
 		'episodes' => 'ep.',
@@ -93,7 +93,7 @@ for($i = 0; $i < count($titles); $i++) {
 	// do not change the values on the left, only put your desired status on the right
 	// you can add special array values as desired (for example "$current[$i]/$totals[$i] $units[$i]" becomes "2/13 episodes")
 	// be careful of unclosed quotes, and every substitution needs a comma except the last!
-	$status[$i] = strtr( $status[$i], array( 
+	$status[$i] = strtr( $status[$i], array(
 		"Plan to Watch" => "Plan to Watch",
 		"Plan to Read" => "Plan to Read",
 		"Watching" => "Just watched $units[$i] $current[$i]",
