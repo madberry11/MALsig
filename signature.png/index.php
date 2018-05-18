@@ -56,7 +56,7 @@ $buffer = strtr($buffer, array("\n" => '', "\r" => '', "\t" => '', '&lt;' => '<'
 preg_match_all("/<item><title>([^<]*) - ([^<]*?)<\/title>/i", $buffer, $titlematches);
 preg_match_all("/<description><![CDATA[([^]]*) - ([d?]+) of ([d?]+) ([^]]*)]]></description>/", $buffer, $statusmatches);
 preg_match_all("/<pubDate>([^<]*)<\/pubDate>/i", $buffer, $timematches);
-preg_match_all("@<link>https?://(?:www\.)?myanimelist\.net/(anime|manga)/(\d+)/[^<]*</link>@i", $buffer, $linkmatches);
+preg_match_all("@<link>http?://(?:www\.)?myanimelist\.net/(anime|manga)/(\d+)/[^<]*</link>@i", $buffer, $linkmatches);
 $titles = $titlematches[1]; // $titles is now an array of titles
 $status = $statusmatches[1]; // $status is now an array of statuses
 $current = $statusmatches[2]; // $current is now an array of all the current episodes/chapters
