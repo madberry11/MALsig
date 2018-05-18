@@ -39,8 +39,8 @@ check_cache(10); // time to cache signature in minutes, you can comment out this
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // LET'S DOWNLOAD THE RSS FEED AND PARSE THE DATA - you should not have to change anything here
-$animebuffer = download("https://myanimelist.net/rss.php?type=rw&u={$user}");
-$mangabuffer = download("https://myanimelist.net/rss.php?type=rm&u={$user}");
+$animebuffer = download("http://myanimelist.net/rss.php?type=rw&u={$user}");
+$mangabuffer = download("http://myanimelist.net/rss.php?type=rm&u={$user}");
 if ( !$animebuffer or !$mangabuffer ) die("Could not download RSS feed");
 
 // lets fix the status in the manga feeds so they make sense, and so we can differentiate from anime (silly Xinil)
